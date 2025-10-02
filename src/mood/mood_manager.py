@@ -92,6 +92,9 @@ class ChatMood:
             f"{self.log_prefix} 更新情绪状态，更新概率: {update_probability:.2f}"
         )
 
+        # 记录变化前的状态
+        old_mood_state = self.mood_state
+
         message_time: float = message.message_info.time  # type: ignore
         message_list_before_now = get_raw_msg_by_timestamp_with_chat_inclusive(
             chat_id=self.chat_id,
@@ -134,13 +137,27 @@ class ChatMood:
             logger.info(f"{self.log_prefix} response: {response}")
             logger.info(f"{self.log_prefix} reasoning_content: {reasoning_content}")
 
-        logger.info(f"{self.log_prefix} 情绪状态更新为: {response}")
+        # 记录变化后的状态
+        new_mood_state = response
+
+        # 输出详细的情感变化日志
+        logger.info(f"{self.log_prefix} === 情感状态变化 ===")
+        logger.info(f"{self.log_prefix} 触发事件: 收到消息")
+        logger.info(f"{self.log_prefix} 消息内容: '{message.processed_plain_text[:50]}{'...' if len(message.processed_plain_text) > 50 else ''}'")
+        logger.info(f"{self.log_prefix} 时间: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(message_time))}")
+        logger.info(f"{self.log_prefix} 情感状态变化: {old_mood_state} → {new_mood_state}")
+        logger.info(f"{self.log_prefix} 更新概率: {update_probability:.2f}")
+        logger.info(f"{self.log_prefix} 时间间隔: {during_last_time:.1f}秒")
+        logger.info(f"{self.log_prefix} ===================")
 
         self.mood_state = response
 
         self.last_change_time = message_time
 
     async def regress_mood(self):
+        # 记录变化前的状态
+        old_mood_state = self.mood_state
+        
         message_time = time.time()
         message_list_before_now = get_raw_msg_by_timestamp_with_chat_inclusive(
             chat_id=self.chat_id,
@@ -184,7 +201,17 @@ class ChatMood:
             logger.info(f"{self.log_prefix} response: {response}")
             logger.info(f"{self.log_prefix} reasoning_content: {reasoning_content}")
 
-        logger.info(f"{self.log_prefix} 情绪状态转变为: {response}")
+        # 记录变化后的状态
+        new_mood_state = response
+
+        # 输出详细的情感回归日志
+        logger.info(f"{self.log_prefix} === 情感状态回归 ===")
+        logger.info(f"{self.log_prefix} 触发事件: 自然衰减")
+        logger.info(f"{self.log_prefix} 回归次数: 第{self.regression_count + 1}次")
+        logger.info(f"{self.log_prefix} 时间: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(message_time))}")
+        logger.info(f"{self.log_prefix} 情感状态变化: {old_mood_state} → {new_mood_state}")
+        logger.info(f"{self.log_prefix} 距离上次变化: {message_time - self.last_change_time:.1f}秒")
+        logger.info(f"{self.log_prefix} ===================")
 
         self.mood_state = response
 

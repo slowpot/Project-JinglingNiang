@@ -28,6 +28,7 @@ from src.chat.express.expression_selector import expression_selector
 
 # from src.chat.memory_system.memory_activator import MemoryActivator
 from src.mood.mood_manager import mood_manager
+from src.mood.advanced_mood_manager import advanced_mood_manager
 from src.person_info.person_info import Person, is_person_known
 from src.plugin_system.base.component_types import ActionInfo, EventType
 from src.plugin_system.apis import llm_api
@@ -650,7 +651,10 @@ class DefaultReplyer:
             target = reply_message.processed_plain_text
 
         mood_prompt: str = ""
-        if global_config.mood.enable_mood:
+        if global_config.mood.enable_advanced_mood:
+            chat_mood = advanced_mood_manager.get_mood_by_chat_id(chat_id)
+            mood_prompt = chat_mood.get_mood_description()
+        elif global_config.mood.enable_mood:
             chat_mood = mood_manager.get_mood_by_chat_id(chat_id)
             mood_prompt = chat_mood.mood_state
 
@@ -836,7 +840,10 @@ class DefaultReplyer:
         target = re.sub(r"\\[picid:[^\\]]+\\]", "[图片]", target)
 
         # 添加情绪状态获取
-        if global_config.mood.enable_mood:
+        if global_config.mood.enable_advanced_mood:
+            chat_mood = advanced_mood_manager.get_mood_by_chat_id(chat_id)
+            mood_prompt = chat_mood.get_mood_description()
+        elif global_config.mood.enable_mood:
             chat_mood = mood_manager.get_mood_by_chat_id(chat_id)
             mood_prompt = chat_mood.mood_state
         else:

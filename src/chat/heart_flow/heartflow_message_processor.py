@@ -12,6 +12,7 @@ from src.chat.utils.utils import is_mentioned_bot_in_message
 from src.chat.utils.chat_message_builder import replace_user_references
 from src.common.logger import get_logger
 from src.mood.mood_manager import mood_manager
+from src.mood.advanced_mood_manager import advanced_mood_manager
 from src.person_info.person_info import Person
 from src.common.database.database_model import Images
 
@@ -77,7 +78,10 @@ class HeartFCMessageReceiver:
 
             heartflow_chat: HeartFChatting = await heartflow.get_or_create_heartflow_chat(chat.stream_id)  # type: ignore
 
-            if global_config.mood.enable_mood:
+            if global_config.mood.enable_advanced_mood:
+                chat_mood = advanced_mood_manager.get_mood_by_chat_id(heartflow_chat.stream_id)
+                asyncio.create_task(chat_mood.update_mood_by_message(message))
+            elif global_config.mood.enable_mood:
                 chat_mood = mood_manager.get_mood_by_chat_id(heartflow_chat.stream_id)
                 asyncio.create_task(chat_mood.update_mood_by_message(message))
 

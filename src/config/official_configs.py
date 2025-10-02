@@ -307,6 +307,18 @@ class MoodConfig(ConfigBase):
 
     mood_update_threshold: float = 1.0
     """情绪更新阈值,越高，更新越慢"""
+    
+    enable_advanced_mood: bool = False
+    """是否启用高级情绪系统（多元化情感分析）"""
+    
+    emotion_decay_rate: float = 0.9
+    """情感衰减率（0-1），值越小衰减越快"""
+    
+    max_regression_count: int = 3
+    """最大回归次数，防止情感过度衰减"""
+    
+    keyword_sensitivity: float = 0.5
+    """关键词敏感度，影响情感关键词的检测强度"""
 
 
 @dataclass

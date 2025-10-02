@@ -8,6 +8,7 @@ from maim_message import UserInfo, Seg
 from src.common.logger import get_logger
 from src.config.config import global_config
 from src.mood.mood_manager import mood_manager  # 导入情绪管理器
+from src.mood.advanced_mood_manager import advanced_mood_manager  # 导入高级情绪管理器
 from src.chat.message_receive.chat_stream import get_chat_manager, ChatStream
 from src.chat.message_receive.message import MessageRecv, MessageRecvS4U
 from src.chat.message_receive.storage import MessageStorage
@@ -76,6 +77,7 @@ class ChatBot:
         self.bot = None  # bot 实例引用
         self._started = False
         self.mood_manager = mood_manager  # 获取情绪管理器单例
+        self.advanced_mood_manager = advanced_mood_manager  # 获取高级情绪管理器单例
         self.heartflow_message_receiver = HeartFCMessageReceiver()  # 新增
 
         self.s4u_message_processor = S4UMessageProcessor()

@@ -84,6 +84,10 @@ enable_tool = true # 是否启用回复工具
 [mood]
 enable_mood = true # 是否启用情绪系统
 mood_update_threshold = 1 # 情绪更新阈值,越高，更新越慢
+enable_advanced_mood = true # 是否启用高级情绪系统（多元化情感分析）
+emotion_decay_rate = 0.9 # 情感衰减率（0-1），值越小衰减越快
+max_regression_count = 3 # 最大回归次数，防止情感过度衰减
+keyword_sensitivity = 0.5 # 关键词敏感度，影响情感关键词的检测强度
 
 [emoji]
 emoji_chance = 0.6 # 麦麦激活表情包动作的概率

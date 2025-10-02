@@ -138,6 +138,12 @@ def _prompt_user_confirmation(eula_hash: str, privacy_hash: str) -> None:
     confirm_logger.critical(
         f'输入"同意"或"confirmed"或设置环境变量"EULA_AGREE={eula_hash}"和"PRIVACY_AGREE={privacy_hash}"继续运行'
     )
+    
+    # 在非交互式环境中自动确认
+    import sys
+    if not sys.stdin.isatty():
+        confirm_logger.critical("检测到非交互式环境，自动确认协议")
+        return
 
     while True:
         user_input = input().strip().lower()

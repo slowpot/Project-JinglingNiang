@@ -327,3 +327,6 @@ config.toml
 
 interested_rates.txt
 MaiBot.code-workspace
+
+# Test files
+test_*.py
