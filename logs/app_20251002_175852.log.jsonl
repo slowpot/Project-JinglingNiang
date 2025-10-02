@@ -1,0 +1,96 @@
+{"logger_name": "logger", "event": "已启动日志清理任务，将自动清理30天前的日志文件（轮转份数限制: 30个文件）", "level": "info", "lineno": 840, "module": "src.common.logger", "timestamp": "10-02 17:58:52"}
+{"logger_name": "logger", "event": "日志系统已初始化:", "level": "info", "lineno": 792, "module": "src.common.logger", "timestamp": "10-02 17:58:52"}
+{"logger_name": "logger", "event": "  - 控制台级别: INFO", "level": "info", "lineno": 793, "module": "src.common.logger", "timestamp": "10-02 17:58:52"}
+{"logger_name": "logger", "event": "  - 文件级别: DEBUG", "level": "info", "lineno": 794, "module": "src.common.logger", "timestamp": "10-02 17:58:52"}
+{"logger_name": "logger", "event": "  - 轮转份数: 30个文件|自动清理: 30天前的日志", "level": "info", "lineno": 795, "module": "src.common.logger", "timestamp": "10-02 17:58:52"}
+{"logger_name": "config", "event": "MaiCore当前版本: 0.10.3", "level": "info", "lineno": 458, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "已将bot_config模板文件复制到: C:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\template\\compare\\bot_config_template.toml", "level": "info", "lineno": 266, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "\n----------------------------------------\n检测到bot_config版本号不同: 旧版本 v6.9.0 -> 新版本 v6.14.3\n----------------------------------------", "level": "info", "lineno": 287, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "已备份旧bot_config配置文件到: C:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\config\\old\\bot_config_20251002_175854.toml", "level": "info", "lineno": 300, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "已创建新bot_config配置文件: C:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\config\\bot_config.toml", "level": "info", "lineno": 304, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "bot_config配置项变动如下：\n----------------------------------------", "level": "info", "lineno": 308, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "新增: personality.plan_style  注释: 无", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "新增: personality.visual_style  注释: 无", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "新增: personality.private_plan_style  注释: 无", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "新增: chat.talk_value  注释: #麦麦的聊天设置", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: chat.talk_frequency  注释: #麦麦的聊天设置", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: chat.focus_value  注释: #麦麦的聊天设置", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: chat.at_bot_inevitable_reply  注释: #麦麦的聊天设置", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: chat.planner_size  注释: #麦麦的聊天设置", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: chat.focus_value_adjust  注释: #麦麦的聊天设置", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: chat.talk_frequency_adjust  注释: #麦麦的聊天设置", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "新增: mood.enable_advanced_mood  注释: 无", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "新增: mood.emotion_decay_rate  注释: 无", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "新增: mood.max_regression_count  注释: 无", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "新增: mood.keyword_sensitivity  注释: 无", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "新增: experimental.none  注释: #实验性功能", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: experimental.enable_friend_chat  注释: #实验性功能", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: memory  注释: 无", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: custom_prompt  注释: 无", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "开始合并bot_config新旧配置...", "level": "info", "lineno": 316, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "bot_config配置文件更新完成，建议检查新配置文件中的内容，以免丢失重要信息", "level": "info", "lineno": 322, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "已将model_config模板文件复制到: C:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\template\\compare\\model_config_template.toml", "level": "info", "lineno": 266, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "\n----------------------------------------\n检测到model_config版本号不同: 旧版本 v1.5.0 -> 新版本 v1.7.0\n----------------------------------------", "level": "info", "lineno": 287, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "已备份旧model_config配置文件到: C:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\config\\old\\model_config_20251002_175854.toml", "level": "info", "lineno": 300, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "已创建新model_config配置文件: C:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\config\\model_config.toml", "level": "info", "lineno": 304, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "model_config配置项变动如下：\n----------------------------------------", "level": "info", "lineno": 308, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: model_task_config.planner_small  注释: # 在麦麦的一些组件中使用的模型，例如表情包模块，取名模块，关系模块，是麦麦必须的模型", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "删减: model_task_config.emotion  注释: # 在麦麦的一些组件中使用的模型，例如表情包模块，取名模块，关系模块，是麦麦必须的模型", "level": "info", "lineno": 311, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "开始合并model_config新旧配置...", "level": "info", "lineno": 316, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "model_config配置文件更新完成，建议检查新配置文件中的内容，以免丢失重要信息", "level": "info", "lineno": 322, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "正在品鉴配置文件...", "level": "info", "lineno": 462, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "config", "event": "非常的新鲜，非常的美味！", "level": "info", "lineno": 465, "module": "src.config.config", "timestamp": "10-02 17:58:54"}
+{"logger_name": "local_storage", "event": "啊咧？记事本不存在，正在创建新的记事本......", "level": "warning", "lineno": 62, "module": "src.manager.local_store_manager", "timestamp": "10-02 17:58:54"}
+{"logger_name": "local_storage", "event": "记事本创建成功！", "level": "info", "lineno": 66, "module": "src.manager.local_store_manager", "timestamp": "10-02 17:58:54"}
+{"logger_name": "database_model", "event": "表 'chat_streams' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'chat_streams' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'llm_usage' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'llm_usage' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'emoji' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'emoji' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'messages' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'messages' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'images' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'images' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'image_descriptions' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'image_descriptions' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'online_time' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'online_time' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'person_info' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'person_info' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'expression' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'expression' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'graph_nodes' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'graph_nodes' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'graph_edges' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'graph_edges' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'action_records' 未找到，正在创建...", "level": "warning", "lineno": 399, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'action_records' 创建成功", "level": "info", "lineno": 401, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "开始同步数据库字段约束...", "level": "debug", "lineno": 458, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'chat_streams' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'chat_streams' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'llm_usage' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'llm_usage' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'emoji' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'emoji' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'messages' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'messages' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'images' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'images' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'image_descriptions' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'image_descriptions' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'online_time' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'online_time' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'person_info' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'person_info' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'expression' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'expression' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'graph_nodes' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'graph_nodes' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'graph_edges' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'graph_edges' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "检查表 'action_records' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "表 'action_records' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "数据库字段约束同步完成", "level": "debug", "lineno": 460, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "database_model", "event": "数据库初始化完成", "level": "info", "lineno": 467, "module": "src.common.database.database_model", "timestamp": "10-02 17:58:55"}
+{"logger_name": "person_info", "event": "已加载 0 个用户名称 (Peewee)", "level": "debug", "lineno": 521, "module": "src.person_info.person_info", "timestamp": "10-02 17:58:58"}

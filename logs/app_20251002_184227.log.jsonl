@@ -1,0 +1,36 @@
+{"logger_name": "config", "event": "MaiCore当前版本: 0.10.3", "level": "info", "lineno": 458, "module": "src.config.config", "timestamp": "10-02 18:42:27"}
+{"logger_name": "config", "event": "未检测到bot_config模板默认值变动", "level": "info", "lineno": 261, "module": "src.config.config", "timestamp": "10-02 18:42:27"}
+{"logger_name": "config", "event": "compare下的bot_config模板版本不低于当前模板，无需替换: c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\template\\compare\\bot_config_template.toml", "level": "debug", "lineno": 271, "module": "src.config.config", "timestamp": "10-02 18:42:27"}
+{"logger_name": "config", "event": "检测到bot_config配置文件版本号相同 (v6.14.3)，跳过更新", "level": "info", "lineno": 284, "module": "src.config.config", "timestamp": "10-02 18:42:27"}
+{"logger_name": "config", "event": "未检测到model_config模板默认值变动", "level": "info", "lineno": 261, "module": "src.config.config", "timestamp": "10-02 18:42:27"}
+{"logger_name": "config", "event": "compare下的model_config模板版本不低于当前模板，无需替换: c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\template\\compare\\model_config_template.toml", "level": "debug", "lineno": 271, "module": "src.config.config", "timestamp": "10-02 18:42:27"}
+{"logger_name": "config", "event": "检测到model_config配置文件版本号相同 (v1.7.0)，跳过更新", "level": "info", "lineno": 284, "module": "src.config.config", "timestamp": "10-02 18:42:27"}
+{"logger_name": "config", "event": "正在品鉴配置文件...", "level": "info", "lineno": 462, "module": "src.config.config", "timestamp": "10-02 18:42:27"}
+{"logger_name": "config", "event": "非常的新鲜，非常的美味！", "level": "info", "lineno": 465, "module": "src.config.config", "timestamp": "10-02 18:42:27"}
+{"logger_name": "database_model", "event": "开始同步数据库字段约束...", "level": "debug", "lineno": 458, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'chat_streams' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'chat_streams' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'llm_usage' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'llm_usage' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'emoji' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'emoji' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'messages' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'messages' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'images' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'images' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'image_descriptions' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'image_descriptions' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'online_time' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'online_time' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'person_info' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'person_info' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'expression' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'expression' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'graph_nodes' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'graph_nodes' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'graph_edges' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'graph_edges' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "检查表 'action_records' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "表 'action_records' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "数据库字段约束同步完成", "level": "debug", "lineno": 460, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}
+{"logger_name": "database_model", "event": "数据库初始化完成", "level": "info", "lineno": 467, "module": "src.common.database.database_model", "timestamp": "10-02 18:42:28"}

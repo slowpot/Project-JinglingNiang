@@ -1,0 +1,63 @@
+{"logger_name": "logger", "event": "已启动日志清理任务，将自动清理30天前的日志文件（轮转份数限制: 30个文件）", "level": "info", "lineno": 840, "module": "src.common.logger", "timestamp": "10-02 18:05:31"}
+{"logger_name": "logger", "event": "日志系统已初始化:", "level": "info", "lineno": 792, "module": "src.common.logger", "timestamp": "10-02 18:05:31"}
+{"logger_name": "logger", "event": "  - 控制台级别: INFO", "level": "info", "lineno": 793, "module": "src.common.logger", "timestamp": "10-02 18:05:31"}
+{"logger_name": "logger", "event": "  - 文件级别: DEBUG", "level": "info", "lineno": 794, "module": "src.common.logger", "timestamp": "10-02 18:05:31"}
+{"logger_name": "logger", "event": "  - 轮转份数: 30个文件|自动清理: 30天前的日志", "level": "info", "lineno": 795, "module": "src.common.logger", "timestamp": "10-02 18:05:31"}
+{"logger_name": "config", "event": "MaiCore当前版本: 0.10.3", "level": "info", "lineno": 458, "module": "src.config.config", "timestamp": "10-02 18:05:31"}
+{"logger_name": "config", "event": "未检测到bot_config模板默认值变动", "level": "info", "lineno": 261, "module": "src.config.config", "timestamp": "10-02 18:05:31"}
+{"logger_name": "config", "event": "compare下的bot_config模板版本不低于当前模板，无需替换: c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\template\\compare\\bot_config_template.toml", "level": "debug", "lineno": 271, "module": "src.config.config", "timestamp": "10-02 18:05:31"}
+{"logger_name": "config", "event": "检测到bot_config配置文件版本号相同 (v6.14.3)，跳过更新", "level": "info", "lineno": 284, "module": "src.config.config", "timestamp": "10-02 18:05:31"}
+{"logger_name": "config", "event": "未检测到model_config模板默认值变动", "level": "info", "lineno": 261, "module": "src.config.config", "timestamp": "10-02 18:05:32"}
+{"logger_name": "config", "event": "compare下的model_config模板版本不低于当前模板，无需替换: c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\template\\compare\\model_config_template.toml", "level": "debug", "lineno": 271, "module": "src.config.config", "timestamp": "10-02 18:05:32"}
+{"logger_name": "config", "event": "检测到model_config配置文件版本号相同 (v1.7.0)，跳过更新", "level": "info", "lineno": 284, "module": "src.config.config", "timestamp": "10-02 18:05:32"}
+{"logger_name": "config", "event": "正在品鉴配置文件...", "level": "info", "lineno": 462, "module": "src.config.config", "timestamp": "10-02 18:05:32"}
+{"logger_name": "config", "event": "非常的新鲜，非常的美味！", "level": "info", "lineno": 465, "module": "src.config.config", "timestamp": "10-02 18:05:32"}
+{"logger_name": "local_storage", "event": "正在阅读记事本......我在看，我真的在看！", "level": "info", "lineno": 48, "module": "src.manager.local_store_manager", "timestamp": "10-02 18:05:32"}
+{"logger_name": "local_storage", "event": "加载本地存储数据: data/local_store.json", "level": "debug", "lineno": 49, "module": "src.manager.local_store_manager", "timestamp": "10-02 18:05:32"}
+{"logger_name": "local_storage", "event": "全都记起来了！", "level": "info", "lineno": 53, "module": "src.manager.local_store_manager", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "开始同步数据库字段约束...", "level": "debug", "lineno": 458, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'chat_streams' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'chat_streams' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'llm_usage' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'llm_usage' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'emoji' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'emoji' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'messages' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'messages' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'images' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'images' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'image_descriptions' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'image_descriptions' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'online_time' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'online_time' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'person_info' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'person_info' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'expression' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'expression' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'graph_nodes' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'graph_nodes' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'graph_edges' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'graph_edges' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "检查表 'action_records' 的字段约束...", "level": "debug", "lineno": 499, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "表 'action_records' 的字段约束已同步", "level": "debug", "lineno": 547, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "数据库字段约束同步完成", "level": "debug", "lineno": 460, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "database_model", "event": "数据库初始化完成", "level": "info", "lineno": 467, "module": "src.common.database.database_model", "timestamp": "10-02 18:05:32"}
+{"logger_name": "person_info", "event": "已加载 0 个用户名称 (Peewee)", "level": "debug", "lineno": 521, "module": "src.person_info.person_info", "timestamp": "10-02 18:05:33"}
+{"logger_name": "s4u_config", "event": "S4U当前版本: 1.1.0", "level": "info", "lineno": 362, "module": "src.mais4u.s4u_config", "timestamp": "10-02 18:05:33"}
+{"logger_name": "s4u_config", "event": "检测到S4U配置文件版本号相同 (v1.2.0)，跳过更新", "level": "info", "lineno": 286, "module": "src.mais4u.s4u_config", "timestamp": "10-02 18:05:33"}
+{"logger_name": "s4u_config", "event": "S4U配置文件加载完成！", "level": "info", "lineno": 366, "module": "src.mais4u.s4u_config", "timestamp": "10-02 18:05:33"}
+{"logger_name": "component_registry", "event": "组件注册中心初始化完成", "level": "info", "lineno": 64, "module": "src.plugin_system.core.component_registry", "timestamp": "10-02 18:05:34"}
+{"logger_name": "plugin_manager", "event": "已添加插件根目录: src/plugins/built_in", "level": "debug", "lineno": 252, "module": "src.plugin_system.core.plugin_manager", "timestamp": "10-02 18:05:34"}
+{"logger_name": "plugin_manager", "event": "已添加插件根目录: plugins", "level": "debug", "lineno": 252, "module": "src.plugin_system.core.plugin_manager", "timestamp": "10-02 18:05:34"}
+{"logger_name": "plugin_manager", "event": "插件管理器初始化完成", "level": "info", "lineno": 35, "module": "src.plugin_system.core.plugin_manager", "timestamp": "10-02 18:05:34"}
+{"logger_name": "expressor", "event": "确保目录存在: data\\expression", "level": "debug", "lineno": 415, "module": "src.chat.express.expression_learner", "timestamp": "10-02 18:05:34"}
+{"logger_name": "expressor", "event": "确保目录存在: data\\expression\\learnt_style", "level": "debug", "lineno": 415, "module": "src.chat.express.expression_learner", "timestamp": "10-02 18:05:34"}
+{"logger_name": "expressor", "event": "确保目录存在: data\\expression\\learnt_grammar", "level": "debug", "lineno": 415, "module": "src.chat.express.expression_learner", "timestamp": "10-02 18:05:34"}
+{"logger_name": "expressor", "event": "确保目录存在: data\\expression", "level": "debug", "lineno": 432, "module": "src.chat.express.expression_learner", "timestamp": "10-02 18:05:34"}
+{"logger_name": "expressor", "event": "表达方式JSON已迁移，无需重复迁移。", "level": "info", "lineno": 438, "module": "src.chat.express.expression_learner", "timestamp": "10-02 18:05:34"}
+{"logger_name": "expressor", "event": "grammar表达已删除，跳过重复删除", "level": "info", "lineno": 545, "module": "src.chat.express.expression_learner", "timestamp": "10-02 18:05:34"}
+{"logger_name": "main", "event": "已设置工作目录为: c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang", "level": "info", "lineno": 36, "module": "bot", "timestamp": "10-02 18:05:35"}
+{"logger_name": "confirm", "event": "EULA或隐私条款内容已更新，请在阅读后重新确认，继续运行视为同意更新后的以上两款协议", "level": "critical", "lineno": 137, "module": "bot", "timestamp": "10-02 18:05:35"}
+{"logger_name": "confirm", "event": "输入\"同意\"或\"confirmed\"或设置环境变量\"EULA_AGREE=99f08e0cab0190de853cb6af7d64d4de\"和\"PRIVACY_AGREE=9943b855e72199d0f5016ea39052f1b6\"继续运行", "level": "critical", "lineno": 138, "module": "bot", "timestamp": "10-02 18:05:35"}
+{"logger_name": "main", "event": "主程序发生异常: EOF when reading a line Traceback (most recent call last):\n  File \"c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\bot.py\", line 206, in <module>\n    main_system = raw_main()\n                  ^^^^^^^^^^\n  File \"c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\bot.py\", line 193, in raw_main\n    check_eula()\n  File \"c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\bot.py\", line 184, in check_eula\n    _prompt_user_confirmation(eula_hash, privacy_hash)\n  File \"c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\bot.py\", line 149, in _prompt_user_confirmation\n    user_input = input().strip().lower()\n                 ^^^^^^^\nEOFError: EOF when reading a line\n", "level": "error", "lineno": 231, "module": "bot", "timestamp": "10-02 18:05:35"}
+{"logger_name": "logger", "event": "正在关闭日志系统...", "level": "info", "lineno": 846, "module": "src.common.logger", "timestamp": "10-02 18:05:35"}

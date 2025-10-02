@@ -1,0 +1,9 @@
+{"logger_name": "config", "event": "MaiCore当前版本: 0.10.3", "level": "info", "lineno": 458, "module": "src.config.config", "timestamp": "10-02 18:42:01"}
+{"logger_name": "config", "event": "未检测到bot_config模板默认值变动", "level": "info", "lineno": 261, "module": "src.config.config", "timestamp": "10-02 18:42:01"}
+{"logger_name": "config", "event": "compare下的bot_config模板版本不低于当前模板，无需替换: c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\template\\compare\\bot_config_template.toml", "level": "debug", "lineno": 271, "module": "src.config.config", "timestamp": "10-02 18:42:01"}
+{"logger_name": "config", "event": "检测到bot_config配置文件版本号相同 (v6.14.3)，跳过更新", "level": "info", "lineno": 284, "module": "src.config.config", "timestamp": "10-02 18:42:01"}
+{"logger_name": "config", "event": "未检测到model_config模板默认值变动", "level": "info", "lineno": 261, "module": "src.config.config", "timestamp": "10-02 18:42:01"}
+{"logger_name": "config", "event": "compare下的model_config模板版本不低于当前模板，无需替换: c:\\Users\\spoti\\Documents\\GitHub\\Project-JinglingNiang\\template\\compare\\model_config_template.toml", "level": "debug", "lineno": 271, "module": "src.config.config", "timestamp": "10-02 18:42:01"}
+{"logger_name": "config", "event": "检测到model_config配置文件版本号相同 (v1.7.0)，跳过更新", "level": "info", "lineno": 284, "module": "src.config.config", "timestamp": "10-02 18:42:01"}
+{"logger_name": "config", "event": "正在品鉴配置文件...", "level": "info", "lineno": 462, "module": "src.config.config", "timestamp": "10-02 18:42:01"}
+{"logger_name": "config", "event": "非常的新鲜，非常的美味！", "level": "info", "lineno": 465, "module": "src.config.config", "timestamp": "10-02 18:42:01"}
