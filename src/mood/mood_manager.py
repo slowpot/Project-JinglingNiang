@@ -69,21 +69,27 @@ class ChatMood:
     async def update_mood_by_message(self, message: MessageRecv):
         self.regression_count = 0
 
-        during_last_time = message.message_info.time - self.last_change_time  # type: ignore
+        # 检查消息是否提到机器人，如果是则100%更新概率
+        from src.chat.utils.utils import is_mentioned_bot_in_message
+        is_mentioned, _, _ = is_mentioned_bot_in_message(message)
+        if is_mentioned:
+            update_probability = 1.0  # 提到机器人时100%更新概率
+        else:
+            during_last_time = message.message_info.time - self.last_change_time  # type: ignore
 
-        base_probability = 0.05
-        time_multiplier = 4 * (1 - math.exp(-0.01 * during_last_time))
+            base_probability = 0.05
+            time_multiplier = 4 * (1 - math.exp(-0.01 * during_last_time))
 
-        # 基于消息长度计算基础兴趣度
-        message_length = len(message.processed_plain_text or "")
-        interest_multiplier = min(2.0, 1.0 + message_length / 100)
+            # 基于消息长度计算基础兴趣度
+            message_length = len(message.processed_plain_text or "")
+            interest_multiplier = min(2.0, 1.0 + message_length / 100)
 
-        logger.debug(
-            f"base_probability: {base_probability}, time_multiplier: {time_multiplier}, interest_multiplier: {interest_multiplier}"
-        )
-        update_probability = global_config.mood.mood_update_threshold * min(
-            1.0, base_probability * time_multiplier * interest_multiplier
-        )
+            logger.debug(
+                f"base_probability: {base_probability}, time_multiplier: {time_multiplier}, interest_multiplier: {interest_multiplier}"
+            )
+            update_probability = global_config.mood.mood_update_threshold * min(
+                1.0, base_probability * time_multiplier * interest_multiplier
+            )
 
         if random.random() > update_probability:
             return

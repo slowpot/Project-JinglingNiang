@@ -154,20 +154,180 @@ class EmotionInfluence:
     dominance_influence: float = 0.0
 
 
+@dataclass
+class EmotionSuggestion:
+    """LLM情感建议数据类，包含完整的情感状态更新建议"""
+    # 基本情感维度建议值 (0-10分)
+    joy: float = 0.0
+    sadness: float = 0.0
+    anger: float = 0.0
+    fear: float = 0.0
+    surprise: float = 0.0
+    disgust: float = 0.0
+    
+    # 情感强度维度建议值 (0-10分)
+    arousal: float = 0.0
+    valence: float = 0.0
+    dominance: float = 0.0
+    
+    # 复合情感维度建议值 (0-10分)
+    excitement: float = 0.0
+    calmness: float = 0.0
+    tension: float = 0.0
+    
+    # 个性特质建议值 (0-10分)
+    extroversion: float = 0.0
+    neuroticism: float = 0.0
+    openness: float = 0.0
+    agreeableness: float = 0.0
+    conscientiousness: float = 0.0
+    
+    # 分析置信度 (0-1)
+    confidence: float = 0.0
+    # 分析模式 (basic/enhanced)
+    analysis_mode: str = "basic"
+    
+    def normalize(self):
+        """规范化建议值到0-10范围"""
+        for attr in ['joy', 'sadness', 'anger', 'fear', 'surprise', 'disgust',
+                    'arousal', 'valence', 'dominance', 'excitement', 'calmness', 'tension',
+                    'extroversion', 'neuroticism', 'openness', 'agreeableness', 'conscientiousness']:
+            if hasattr(self, attr):
+                value = getattr(self, attr)
+                setattr(self, attr, max(0.0, min(10.0, value)))
+        
+        self.confidence = max(0.0, min(1.0, self.confidence))
+    
+    def to_dict(self) -> Dict[str, float]:
+        """转换为字典格式"""
+        return {attr: getattr(self, attr) for attr in self.__dict__}
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, float]) -> 'EmotionSuggestion':
+        """从字典创建情感建议"""
+        suggestion = cls()
+        for attr in suggestion.__dict__:
+            if attr in data:
+                setattr(suggestion, attr, data[attr])
+        suggestion.normalize()
+        return suggestion
+
+
 class LLMEmotionAnalyzer:
     """LLM情感分析器"""
     
     def __init__(self):
         self.emotion_model = LLMRequest(model_set=model_config.model_task_config.utils, request_type="emotion_analysis")
     
-    async def analyze_emotion(self, text: str, context: str = "") -> EmotionInfluence:
+    async def analyze_emotion(self, text: str, context: str = "", enhanced_mode: bool = False) -> EmotionInfluence:
         """使用LLM分析文本情感影响"""
         influence = EmotionInfluence()
         
         if not text:
             return influence
         
-        # 构建情感分析prompt
+        if enhanced_mode:
+            # 使用增强模式分析完整情感状态
+            suggestion = await self._analyze_emotion_enhanced(text, context)
+            # 将建议转换为影响因子（保持向后兼容）
+            influence = self._suggestion_to_influence(suggestion)
+        else:
+            # 使用基础模式分析
+            influence = await self._analyze_emotion_basic(text, context)
+        
+        return influence
+    
+    async def analyze_emotion_enhanced(self, text: str, context: str = "") -> EmotionSuggestion:
+        """使用增强模式分析完整情感状态"""
+        suggestion = EmotionSuggestion()
+        
+        if not text:
+            return suggestion
+        
+        # 构建增强情感分析prompt
+        prompt = f"""
+请分析以下文本的情感倾向，并给出完整的情感状态建议（0-10分）：
+
+分析文本："{text}"
+
+{context}
+
+请以JSON格式输出分析结果，包含以下所有情感维度：
+- 基本情感：喜悦(joy)、悲伤(sadness)、愤怒(anger)、恐惧(fear)、惊讶(surprise)、厌恶(disgust)
+- 强度维度：唤醒度(arousal)、效价(valence)、支配度(dominance)
+- 复合情感：兴奋度(excitement)、平静度(calmness)、紧张度(tension)
+- 个性特质：外向性(extroversion)、神经质(neuroticism)、开放性(openness)、宜人性(agreeableness)、尽责性(conscientiousness)
+
+请基于文本内容分析机器人应该表现出的情感状态，并给出置信度评估。
+
+格式如下：
+{{
+    "joy": 5.0,
+    "sadness": 1.0,
+    "anger": 1.0,
+    "fear": 1.0,
+    "surprise": 1.0,
+    "disgust": 1.0,
+    "arousal": 5.0,
+    "valence": 5.0,
+    "dominance": 5.0,
+    "excitement": 5.0,
+    "calmness": 5.0,
+    "tension": 1.0,
+    "extroversion": 5.0,
+    "neuroticism": 5.0,
+    "openness": 5.0,
+    "agreeableness": 5.0,
+    "conscientiousness": 5.0,
+    "confidence": 0.8,
+    "analysis_mode": "enhanced"
+}}
+
+说明：
+- 每个情感维度的值范围是0.0到10.0
+- confidence: 分析置信度（0-1）
+- analysis_mode: 分析模式标识
+
+请直接输出JSON，不要有其他内容。
+"""
+        
+        try:
+            response, (reasoning_content, _, _) = await self.emotion_model.generate_response_async(
+                prompt=prompt,
+                temperature=global_config.mood.enhanced_analysis_temperature,
+                max_tokens=global_config.mood.enhanced_analysis_max_tokens
+            )
+            
+            # 解析JSON响应
+            import json
+            emotion_data = json.loads(response.strip())
+            
+            # 创建情感建议对象
+            suggestion = EmotionSuggestion.from_dict(emotion_data)
+            
+        except Exception as e:
+            logger.warning(f"LLM增强情感分析失败，使用基础模式: {e}")
+            # 检查是否启用降级机制
+            if global_config.mood.enable_emotion_suggestion_fallback:
+                # 降级到基础模式
+                influence = await self._analyze_emotion_basic(text, context)
+                suggestion = self._influence_to_suggestion(influence)
+                suggestion.confidence = 0.3  # 基础模式置信度较低
+                suggestion.analysis_mode = "basic_fallback"
+            else:
+                # 不启用降级机制，返回默认建议
+                suggestion = EmotionSuggestion()
+                suggestion.confidence = 0.1  # 极低置信度
+                suggestion.analysis_mode = "error_fallback"
+                logger.error(f"LLM增强情感分析失败且未启用降级机制: {e}")
+        
+        return suggestion
+    
+    async def _analyze_emotion_basic(self, text: str, context: str = "") -> EmotionInfluence:
+        """基础情感分析方法"""
+        influence = EmotionInfluence()
+        
+        # 构建基础情感分析prompt
         prompt = f"""
 请分析以下文本的情感倾向，并给出对6种基本情感的影响程度（0-2分）：
 - 喜悦(joy): 正面、愉快的情感
@@ -227,11 +387,59 @@ class LLMEmotionAnalyzer:
                 influence.dominance_influence = float(emotion_data["dominance"])
                 
         except Exception as e:
-            logger.warning(f"LLM情感分析失败，使用备用方法: {e}")
+            logger.warning(f"LLM基础情感分析失败，使用备用方法: {e}")
             # 备用方法：使用简单的关键词分析
             influence = self._fallback_analysis(text)
         
         return influence
+    
+    def _suggestion_to_influence(self, suggestion: EmotionSuggestion) -> EmotionInfluence:
+        """将情感建议转换为影响因子（保持向后兼容）"""
+        influence = EmotionInfluence()
+        
+        # 将建议值转换为影响因子（建议值 - 中性值5.0）
+        for emotion_type in EmotionType:
+            current_value = getattr(suggestion, emotion_type.value)
+            influence_value = (current_value - 5.0) * 0.4  # 缩放因子
+            setattr(influence, f"{emotion_type.value}_influence", influence_value)
+        
+        # 强度维度转换
+        influence.arousal_influence = (suggestion.arousal - 5.0) * 0.4
+        influence.valence_influence = (suggestion.valence - 5.0) * 0.4
+        influence.dominance_influence = (suggestion.dominance - 5.0) * 0.4
+        
+        return influence
+    
+    def _influence_to_suggestion(self, influence: EmotionInfluence) -> EmotionSuggestion:
+        """将影响因子转换为情感建议"""
+        suggestion = EmotionSuggestion()
+        
+        # 将影响因子转换为建议值（中性值5.0 + 影响因子）
+        for emotion_type in EmotionType:
+            influence_value = getattr(influence, f"{emotion_type.value}_influence", 0.0)
+            suggestion_value = 5.0 + influence_value * 2.5  # 反向缩放
+            setattr(suggestion, emotion_type.value, suggestion_value)
+        
+        # 强度维度转换
+        suggestion.arousal = 5.0 + influence.arousal_influence * 2.5
+        suggestion.valence = 5.0 + influence.valence_influence * 2.5
+        suggestion.dominance = 5.0 + influence.dominance_influence * 2.5
+        
+        # 设置默认值
+        suggestion.excitement = 5.0
+        suggestion.calmness = 5.0
+        suggestion.tension = 1.0
+        suggestion.extroversion = 5.0
+        suggestion.neuroticism = 5.0
+        suggestion.openness = 5.0
+        suggestion.agreeableness = 5.0
+        suggestion.conscientiousness = 5.0
+        suggestion.confidence = 0.3
+        suggestion.analysis_mode = "basic_converted"
+        
+        suggestion.normalize()
+        return suggestion
+        
     
     def _fallback_analysis(self, text: str) -> EmotionInfluence:
         """备用情感分析方法（关键词匹配）"""
@@ -269,11 +477,201 @@ class LLMEmotionAnalyzer:
         return influence
 
 
+class SmartEmotionUpdater:
+    """智能情感更新器，实现加权平均、历史融合、平滑过渡算法"""
+    
+    def __init__(self, history_weight: float = None, confidence_threshold: float = None, max_history_size: int = None):
+        # 使用配置参数，如果未提供则使用默认值
+        self.history_weight = history_weight or global_config.mood.enhanced_history_weight
+        self.confidence_threshold = confidence_threshold or global_config.mood.enhanced_confidence_threshold
+        self.max_history_size = max_history_size or global_config.mood.enhanced_max_history_size
+        self.update_history: List[Tuple[EmotionSuggestion, float]] = []  # 更新历史（建议，时间戳）
+    
+    def update_emotion_state(self, current_state: EmotionState, suggestion: EmotionSuggestion) -> EmotionState:
+        """智能更新情感状态"""
+        new_state = EmotionState()
+        
+        # 复制当前状态
+        for attr in current_state.__dict__:
+            setattr(new_state, attr, getattr(current_state, attr))
+        
+        # 根据置信度决定更新策略
+        if suggestion.confidence >= self.confidence_threshold:
+            # 高置信度：直接应用建议值
+            new_state = self._apply_high_confidence_update(new_state, suggestion)
+        else:
+            # 低置信度：使用加权平均和历史融合
+            new_state = self._apply_low_confidence_update(new_state, suggestion)
+        
+        # 更新复合情感维度
+        self._update_composite_emotions(new_state)
+        
+        # 记录更新历史
+        self._record_update_history(suggestion)
+        
+        new_state.normalize()
+        return new_state
+    
+    def _apply_high_confidence_update(self, state: EmotionState, suggestion: EmotionSuggestion) -> EmotionState:
+        """高置信度更新策略：直接应用建议值"""
+        # 直接设置所有情感维度
+        for attr in ['joy', 'sadness', 'anger', 'fear', 'surprise', 'disgust',
+                    'arousal', 'valence', 'dominance', 'excitement', 'calmness', 'tension',
+                    'extroversion', 'neuroticism', 'openness', 'agreeableness', 'conscientiousness']:
+            if hasattr(suggestion, attr):
+                setattr(state, attr, getattr(suggestion, attr))
+        
+        return state
+    
+    def _apply_low_confidence_update(self, state: EmotionState, suggestion: EmotionSuggestion) -> EmotionState:
+        """低置信度更新策略：加权平均和历史融合"""
+        # 计算当前建议的权重
+        suggestion_weight = suggestion.confidence / self.confidence_threshold
+        
+        # 应用加权平均
+        for attr in ['joy', 'sadness', 'anger', 'fear', 'surprise', 'disgust',
+                    'arousal', 'valence', 'dominance']:
+            if hasattr(suggestion, attr) and hasattr(state, attr):
+                current_value = getattr(state, attr)
+                suggested_value = getattr(suggestion, attr)
+                # 加权平均：当前值权重 + 建议值权重
+                new_value = (current_value * (1 - suggestion_weight) +
+                           suggested_value * suggestion_weight)
+                setattr(state, attr, new_value)
+        
+        # 应用历史融合（如果历史记录足够）
+        if len(self.update_history) >= 3:
+            state = self._apply_history_fusion(state, suggestion)
+        
+        return state
+    
+    def _apply_history_fusion(self, state: EmotionState, current_suggestion: EmotionSuggestion) -> EmotionState:
+        """应用历史融合算法"""
+        # 计算历史趋势
+        trend_weights = self._calculate_trend_weights()
+        
+        # 对每个情感维度应用历史趋势
+        for attr in ['joy', 'sadness', 'anger', 'fear', 'surprise', 'disgust',
+                    'arousal', 'valence', 'dominance']:
+            if hasattr(state, attr):
+                current_value = getattr(state, attr)
+                trend_adjustment = self._calculate_trend_adjustment(attr, trend_weights)
+                new_value = current_value + trend_adjustment
+                setattr(state, attr, new_value)
+        
+        return state
+    
+    def _calculate_trend_weights(self) -> Dict[str, float]:
+        """计算历史趋势权重"""
+        if len(self.update_history) < 2:
+            return {}
+        
+        weights = {}
+        recent_time = time.time()
+        
+        for i, (suggestion, timestamp) in enumerate(self.update_history[-5:]):  # 最近5次更新
+            time_diff = recent_time - timestamp
+            # 时间衰减权重：越近的更新权重越高
+            time_weight = max(0.1, 1.0 - (time_diff / 3600))  # 1小时内衰减
+            weights[i] = time_weight
+        
+        # 归一化权重
+        total_weight = sum(weights.values())
+        if total_weight > 0:
+            for key in weights:
+                weights[key] /= total_weight
+        
+        return weights
+    
+    def _calculate_trend_adjustment(self, attribute: str, trend_weights: Dict[str, float]) -> float:
+        """计算特定属性的趋势调整值"""
+        if not trend_weights:
+            return 0.0
+        
+        adjustment = 0.0
+        prev_value = None
+        
+        for i, (suggestion, _) in enumerate(self.update_history[-5:]):
+            if i in trend_weights and hasattr(suggestion, attribute):
+                current_value = getattr(suggestion, attribute)
+                if prev_value is not None:
+                    # 计算变化趋势
+                    change = current_value - prev_value
+                    adjustment += change * trend_weights[i]
+                prev_value = current_value
+        
+        return adjustment * 0.3  # 趋势调整系数
+    
+    def _record_update_history(self, suggestion: EmotionSuggestion):
+        """记录更新历史"""
+        self.update_history.append((suggestion, time.time()))
+        
+        # 限制历史记录大小
+        if len(self.update_history) > self.max_history_size:
+            self.update_history.pop(0)
+    
+    def _update_composite_emotions(self, state: EmotionState):
+        """更新复合情感维度"""
+        # 兴奋度 = 唤醒度 + 喜悦 - 悲伤
+        state.excitement = (state.arousal + state.joy - state.sadness) / 2
+        
+        # 平静度 = 10 - 唤醒度 - 紧张度
+        state.calmness = 10 - state.arousal - state.tension
+        
+        # 紧张度 = 恐惧 + 愤怒 - 喜悦
+        state.tension = (state.fear + state.anger - state.joy) / 2
+    
+    def reset_history(self):
+        """重置更新历史"""
+        self.update_history.clear()
+
+
+class EmotionUpdateManager:
+    """情感更新管理器，统一管理情感更新逻辑"""
+    
+    def __init__(self):
+        self.smart_updater = SmartEmotionUpdater()
+        self.llm_analyzer = LLMEmotionAnalyzer()
+        self.enable_enhanced_mode = global_config.mood.enable_enhanced_emotion_analysis
+    
+    async def update_emotion_by_message(self, current_state: EmotionState, message: MessageRecv,
+                                      context_messages: list = None) -> Tuple[EmotionState, EmotionSuggestion]:
+        """基于消息更新情感状态"""
+        text = message.processed_plain_text or ""
+        
+        if not text:
+            return current_state, EmotionSuggestion()
+        
+        # 构建上下文
+        context = ""
+        if context_messages:
+            context = f"上下文对话：{', '.join([msg.processed_plain_text or '' for msg in context_messages[-3:]])}"
+        
+        # 使用LLM进行情感分析
+        if self.enable_enhanced_mode:
+            # 增强模式：分析完整情感状态
+            suggestion = await self.llm_analyzer.analyze_emotion_enhanced(text, context)
+        else:
+            # 基础模式：分析情感影响
+            influence = await self.llm_analyzer.analyze_emotion(text, context, enhanced_mode=False)
+            suggestion = self.llm_analyzer._influence_to_suggestion(influence)
+        
+        # 智能更新情感状态
+        new_state = self.smart_updater.update_emotion_state(current_state, suggestion)
+        
+        return new_state, suggestion
+    
+    def reset(self):
+        """重置更新管理器"""
+        self.smart_updater.reset_history()
+
+
 class EmotionCalculator:
     """情感计算器"""
     
     def __init__(self):
         self.llm_analyzer = LLMEmotionAnalyzer()
+        self.update_manager = EmotionUpdateManager()
     
     async def calculate_message_influence(self, message: MessageRecv, context_messages: list = None) -> EmotionInfluence:
         """计算消息对情感的影响（使用LLM分析）"""
@@ -291,6 +689,11 @@ class EmotionCalculator:
         influence = await self.llm_analyzer.analyze_emotion(text, context)
         
         return influence
+    
+    async def calculate_emotion_update(self, current_state: EmotionState, message: MessageRecv,
+                                     context_messages: list = None) -> Tuple[EmotionState, EmotionSuggestion]:
+        """计算情感状态更新（使用智能更新管理器）"""
+        return await self.update_manager.update_emotion_by_message(current_state, message, context_messages)
     
     def apply_influence(self, current_state: EmotionState, influence: EmotionInfluence) -> EmotionState:
         """应用情感影响"""
@@ -358,7 +761,7 @@ class AdvancedChatMood:
         # LLM模型
         self.mood_model = LLMRequest(model_set=model_config.model_task_config.utils, request_type="mood")
     
-    async def update_mood_by_message(self, message: MessageRecv):
+    async def update_mood_by_message(self, message: MessageRecv, use_enhanced_mode: bool = None):
         """基于消息更新情感状态"""
         self.regression_count = 0
         
@@ -383,11 +786,22 @@ class AdvancedChatMood:
             limit_mode="last",
         )
         
-        # 计算情感影响（使用LLM分析）
-        influence = await self.calculator.calculate_message_influence(message, context_messages)
+        # 根据配置决定是否使用增强模式
+        if use_enhanced_mode is None:
+            use_enhanced_mode = global_config.mood.enable_enhanced_emotion_analysis
         
-        # 应用情感影响
-        self.emotion_state = self.calculator.apply_influence(self.emotion_state, influence)
+        # 使用智能情感更新系统
+        if use_enhanced_mode:
+            # 使用增强模式：智能更新完整情感状态
+            self.emotion_state, suggestion = await self.calculator.calculate_emotion_update(
+                self.emotion_state, message, context_messages
+            )
+        else:
+            # 使用基础模式：保持原有逻辑
+            influence = await self.calculator.calculate_message_influence(message, context_messages)
+            self.emotion_state = self.calculator.apply_influence(self.emotion_state, influence)
+            # 将影响转换为建议用于日志记录
+            suggestion = self.calculator.llm_analyzer._influence_to_suggestion(influence)
         
         # 使用LLM生成情感描述
         await self._generate_emotion_description(message)
@@ -411,7 +825,9 @@ class AdvancedChatMood:
         logger.info(f"{self.log_prefix} 时间: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(message_time))}")
         logger.info(f"{self.log_prefix} 情感描述变化: {old_description} → {new_description}")
         logger.info(f"{self.log_prefix} 更新概率: {update_probability:.2f}")
-        logger.info(f"{self.log_prefix} 时间间隔: {during_last_time:.1f}秒")
+        logger.info(f"{self.log_prefix} 时间间隔: {message_time - self.last_change_time:.1f}秒")
+        logger.info(f"{self.log_prefix} 分析模式: {'增强模式' if use_enhanced_mode else '基础模式'}")
+        logger.info(f"{self.log_prefix} 分析置信度: {suggestion.confidence:.2f}")
         
         if state_changes:
             logger.info(f"{self.log_prefix} 情感维度变化:")
@@ -430,15 +846,18 @@ class AdvancedChatMood:
                     for dimension, change in category_changes.items():
                         logger.info(f"{self.log_prefix}     {dimension}: {change}")
         
-        # 记录情感影响详情
-        influence_details = []
-        for attr in ['joy', 'sadness', 'anger', 'fear', 'surprise', 'disgust', 'arousal', 'valence', 'dominance']:
-            influence_value = getattr(influence, f"{attr}_influence", 0.0)
-            if abs(influence_value) > 0.01:
-                influence_details.append(f"{attr}+{influence_value:+.1f}")
+        # 记录情感建议详情
+        suggestion_details = []
+        for attr in ['joy', 'sadness', 'anger', 'fear', 'surprise', 'disgust',
+                    'arousal', 'valence', 'dominance', 'excitement', 'calmness', 'tension',
+                    'extroversion', 'neuroticism', 'openness', 'agreeableness', 'conscientiousness']:
+            if hasattr(suggestion, attr):
+                suggestion_value = getattr(suggestion, attr)
+                if abs(suggestion_value - 5.0) > 0.1:  # 只记录显著偏离中性值的建议
+                    suggestion_details.append(f"{attr}:{suggestion_value:.1f}")
         
-        if influence_details:
-            logger.info(f"{self.log_prefix} 情感影响因子: {', '.join(influence_details)}")
+        if suggestion_details:
+            logger.info(f"{self.log_prefix} 情感建议: {', '.join(suggestion_details)}")
         
         logger.info(f"{self.log_prefix} ===================")
         
@@ -446,6 +865,12 @@ class AdvancedChatMood:
     
     def _calculate_update_probability(self, message: MessageRecv) -> float:
         """计算情感更新概率"""
+        # 检查消息是否提到机器人，如果是则100%更新概率
+        from src.chat.utils.utils import is_mentioned_bot_in_message
+        is_mentioned, _, _ = is_mentioned_bot_in_message(message)
+        if is_mentioned:
+            return 1.0  # 提到机器人时100%更新概率
+        
         during_last_time = message.message_info.time - self.last_change_time  # type: ignore
         
         base_probability = 0.05

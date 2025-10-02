@@ -311,6 +311,9 @@ class MoodConfig(ConfigBase):
     enable_advanced_mood: bool = False
     """是否启用高级情绪系统（多元化情感分析）"""
     
+    enable_enhanced_emotion_analysis: bool = False
+    """是否启用增强情感分析（LLM自主更新所有情感维度）"""
+    
     emotion_decay_rate: float = 0.9
     """情感衰减率（0-1），值越小衰减越快"""
     
@@ -319,6 +322,25 @@ class MoodConfig(ConfigBase):
     
     keyword_sensitivity: float = 0.5
     """关键词敏感度，影响情感关键词的检测强度"""
+    
+    # 增强情感系统配置
+    enhanced_confidence_threshold: float = 0.6
+    """增强情感分析的置信度阈值（0-1），高于此值使用高置信度更新策略"""
+    
+    enhanced_history_weight: float = 0.7
+    """历史情感数据的权重（0-1），影响历史趋势对当前更新的影响程度"""
+    
+    enhanced_max_history_size: int = 10
+    """最大历史记录数量，用于情感趋势分析"""
+    
+    enhanced_analysis_temperature: float = 0.3
+    """LLM情感分析的温度参数，影响分析的随机性"""
+    
+    enhanced_analysis_max_tokens: int = 500
+    """LLM情感分析的最大token数量"""
+    
+    enable_emotion_suggestion_fallback: bool = True
+    """是否启用情感建议降级机制，当增强分析失败时降级到基础分析"""
 
 
 @dataclass
