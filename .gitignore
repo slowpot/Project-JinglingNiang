@@ -1,4 +1,10 @@
 data/
+logs/
 
 # Test files
 test_*.py
+/data
+data/local_store.json
+data/MaiBot.db
+data/MaiBot.db-shm
+data/MaiBot.db-wal

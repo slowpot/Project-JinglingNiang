@@ -14,6 +14,7 @@ from src.common.server import get_global_server, Server
 from src.mood.mood_manager import mood_manager
 from src.mood.advanced_mood_manager import advanced_mood_manager
 from src.chat.knowledge import lpmm_start_up
+from src.chat.memory_system.Hippocampus import hippocampus_manager
 from rich.traceback import install
 from src.migrate_helper.migrate import check_and_run_migrations
 # from src.api.main import start_api_server
@@ -36,6 +37,7 @@ class MainSystem:
         # 使用消息API替代直接的FastAPI实例
         self.app: MessageServer = get_global_api()
         self.server: Server = get_global_server()
+        self.hippocampus_manager = hippocampus_manager
 
     async def initialize(self):
         """初始化系统组件"""
@@ -99,15 +101,15 @@ class MainSystem:
 
         logger.info("聊天管理器初始化成功")
 
-        # # 根据配置条件性地初始化记忆系统
-        # if global_config.memory.enable_memory:
-        #     if self.hippocampus_manager:
-        #         self.hippocampus_manager.initialize()
-        #         logger.info("记忆系统初始化成功")
-        # else:
-        #     logger.info("记忆系统已禁用，跳过初始化")
+        # 根据配置条件性地初始化记忆系统
+        if global_config.memory.enable_memory:
+            if self.hippocampus_manager:
+                self.hippocampus_manager.initialize()
+                logger.info("记忆系统初始化成功")
+        else:
+            logger.info("记忆系统已禁用，跳过初始化")
 
-        # await asyncio.sleep(0.5) #防止logger输出飞了
+        await asyncio.sleep(0.5) #防止logger输出飞了
 
         # 将bot.py中的chat_bot.message_process消息处理函数注册到api.py的消息处理基类中
         self.app.register_message_handler(chat_bot.message_process)
@@ -130,22 +132,27 @@ class MainSystem:
 
     async def schedule_tasks(self):
         """调度定时任务"""
+        # 如果启用了记忆系统，添加遗忘任务
+        memory_tasks = []
+        if global_config.memory.enable_memory:
+            memory_tasks.append(asyncio.create_task(self.forget_memory_task()))
+        
         while True:
             tasks = [
                 get_emoji_manager().start_periodic_check_register(),
                 self.app.run(),
                 self.server.run(),
-            ]
+            ] + memory_tasks
 
             await asyncio.gather(*tasks)
 
-    # async def forget_memory_task(self):
-    #     """记忆遗忘任务"""
-    #     while True:
-    #         await asyncio.sleep(global_config.memory.forget_memory_interval)
-    #         logger.info("[记忆遗忘] 开始遗忘记忆...")
-    #         await self.hippocampus_manager.forget_memory(percentage=global_config.memory.memory_forget_percentage)  # type: ignore
-    #         logger.info("[记忆遗忘] 记忆遗忘完成")
+    async def forget_memory_task(self):
+        """记忆遗忘任务"""
+        while True:
+            await asyncio.sleep(global_config.memory.forget_memory_interval)
+            logger.info("[记忆遗忘] 开始遗忘记忆...")
+            await self.hippocampus_manager.forget_memory(percentage=global_config.memory.memory_forget_percentage)  # type: ignore
+            logger.info("[记忆遗忘] 记忆遗忘完成")
 
 
 async def main():

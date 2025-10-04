@@ -329,6 +329,8 @@ class LLMEmotionAnalyzer:
         
         # 构建基础情感分析prompt
         prompt = f"""
+你的人设是:{global_config.personality.personality}
+你的情绪特点是:{global_config.personality.emotion_style}
 请分析以下文本的情感倾向，并给出对6种基本情感的影响程度（0-2分）：
 - 喜悦(joy): 正面、愉快的情感
 - 悲伤(sadness): 负面、难过的情感
@@ -926,7 +928,9 @@ class AdvancedChatMood:
 你当前的情感状态数据如下：{emotion_summary}
 
 请基于当前聊天内容和你的情感数据，用一句话描述你现在的情绪状态。
+你的人设是:{global_config.personality.personality}
 你的情绪特点是:{global_config.personality.emotion_style}
+请结合你的人设和情绪特点，准确描述你现在的情绪状态。
 请只输出情绪状态描述，不要输出其他内容：
 """
         

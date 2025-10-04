@@ -32,6 +32,7 @@ from src.config.official_configs import (
     ToolConfig,
     VoiceConfig,
     DebugConfig,
+    MemoryConfig,
 )
 
 from .api_ada_configs import (
@@ -357,6 +358,7 @@ class Config(ConfigBase):
     tool: ToolConfig
     debug: DebugConfig
     voice: VoiceConfig
+    memory: MemoryConfig
 
 
 @dataclass

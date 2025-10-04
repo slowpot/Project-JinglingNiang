@@ -25,7 +25,9 @@ def init_prompt():
 你刚刚的情绪状态是：{mood_state}
 
 现在，发送了消息，引起了你的注意，你对其进行了阅读和思考，请你输出一句话描述你新的情绪状态
+你的人设是:{personality}
 你的情绪特点是:{emotion_style}
+请结合你的人设和情绪特点，准确描述你现在的情绪状态。
 请只输出新的情绪状态，不要输出其他内容：
 """,
         "change_mood_prompt",
@@ -39,7 +41,9 @@ def init_prompt():
 你之前的情绪状态是：{mood_state}
 
 距离你上次关注群里消息已经过去了一段时间，你冷静了下来，请你输出一句话描述你现在的情绪状态
+你的人设是:{personality}
 你的情绪特点是:{emotion_style}
+请结合你的人设和情绪特点，准确描述你现在的情绪状态。
 请只输出新的情绪状态，不要输出其他内容：
 """,
         "regress_mood_prompt",
@@ -132,6 +136,7 @@ class ChatMood:
             chat_talking_prompt=chat_talking_prompt,
             identity_block=identity_block,
             mood_state=self.mood_state,
+            personality=global_config.personality.personality,
             emotion_style=global_config.personality.emotion_style,
         )
 
@@ -195,6 +200,7 @@ class ChatMood:
             chat_talking_prompt=chat_talking_prompt,
             identity_block=identity_block,
             mood_state=self.mood_state,
+            personality=global_config.personality.personality,
             emotion_style=global_config.personality.emotion_style,
         )
 

@@ -75,6 +75,23 @@ class MemoryActivator:
             request_type="memory.selection",
         )
 
+    async def activate_memory_from_message(self, message):
+        """从消息激活记忆
+        
+        Args:
+            message: MessageRecv对象
+        """
+        # 如果记忆系统被禁用，直接返回
+        if not global_config.memory.enable_memory:
+            return
+            
+        try:
+            # 这里可以添加从消息激活记忆的逻辑
+            # 目前先简单记录日志，避免影响系统运行
+            logger.debug(f"收到消息，准备激活记忆: {message.processed_plain_text[:50] if message.processed_plain_text else '无文本'}")
+        except Exception as e:
+            logger.error(f"激活记忆失败: {e}")
+
     async def activate_memory_with_chat_history(
         self, target_message, chat_history: List[DatabaseMessages]
     ) -> List[Tuple[str, str]]:

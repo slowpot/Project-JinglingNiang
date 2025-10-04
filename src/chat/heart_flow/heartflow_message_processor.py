@@ -15,6 +15,7 @@ from src.mood.mood_manager import mood_manager
 from src.mood.advanced_mood_manager import advanced_mood_manager
 from src.person_info.person_info import Person
 from src.common.database.database_model import Images
+from src.chat.memory_system.memory_activator import MemoryActivator
 
 if TYPE_CHECKING:
     from src.chat.heart_flow.heartFC_chat import HeartFChatting
@@ -52,6 +53,7 @@ class HeartFCMessageReceiver:
     def __init__(self):
         """初始化心流处理器，创建消息存储实例"""
         self.storage = MessageStorage()
+        self.memory_activator = MemoryActivator()
 
     async def process_message(self, message: MessageRecv) -> None:
         """处理接收到的原始消息数据
@@ -75,6 +77,10 @@ class HeartFCMessageReceiver:
             _, keywords = await _calculate_interest(message)
 
             await self.storage.store_message(message, chat)
+
+            # 记忆激活处理
+            if global_config.memory.enable_memory:
+                asyncio.create_task(self.memory_activator.activate_memory_from_message(message))
 
             heartflow_chat: HeartFChatting = await heartflow.get_or_create_heartflow_chat(chat.stream_id)  # type: ignore
 

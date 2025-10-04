@@ -527,3 +527,23 @@ class LPMMKnowledgeConfig(ConfigBase):
 
     embedding_dimension: int = 1024
     """嵌入向量维度，应该与模型的输出维度一致"""
+
+
+@dataclass
+class MemoryConfig(ConfigBase):
+    """记忆系统配置类"""
+
+    enable_memory: bool = False
+    """是否启用记忆系统"""
+
+    memory_ban_words: list[str] = field(default_factory=lambda: [])
+    """记忆系统禁用的关键词列表"""
+
+    memory_forget_time: int = 24
+    """记忆遗忘时间（小时），超过此时间的记忆可能被遗忘"""
+
+    memory_forget_percentage: float = 0.005
+    """记忆遗忘比例，每次遗忘操作中检查的节点和边的比例"""
+
+    forget_memory_interval: int = 3600
+    """记忆遗忘任务执行间隔（秒）"""

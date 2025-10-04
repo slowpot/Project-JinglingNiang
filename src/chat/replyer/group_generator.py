@@ -26,7 +26,7 @@ from src.chat.utils.chat_message_builder import (
 )
 from src.chat.express.expression_selector import expression_selector
 
-# from src.chat.memory_system.memory_activator import MemoryActivator
+from src.chat.memory_system.memory_activator import MemoryActivator
 from src.mood.mood_manager import mood_manager
 from src.mood.advanced_mood_manager import advanced_mood_manager
 from src.person_info.person_info import Person, is_person_known
@@ -54,7 +54,7 @@ class DefaultReplyer:
         self.chat_stream = chat_stream
         self.is_group_chat, self.chat_target_info = get_chat_type_and_target_info(self.chat_stream.stream_id)
         self.heart_fc_sender = UniversalMessageSender()
-        # self.memory_activator = MemoryActivator()
+        self.memory_activator = MemoryActivator()
 
         from src.plugin_system.core.tool_use import ToolExecutor  # 延迟导入ToolExecutor，不然会循环依赖
 
@@ -285,37 +285,37 @@ class DefaultReplyer:
 
         return f"{expression_habits_title}\n{expression_habits_block}", selected_ids
 
-    # async def build_memory_block(self, chat_history: List[DatabaseMessages], target: str) -> str:
-    #     """构建记忆块
+    async def build_memory_block(self, chat_history: List[DatabaseMessages], target: str) -> str:
+        """构建记忆块
 
-    #     Args:
-    #         chat_history: 聊天历史记录
-    #         target: 目标消息内容
+        Args:
+            chat_history: 聊天历史记录
+            target: 目标消息内容
 
-    #     Returns:
-    #         str: 记忆信息字符串
-    #     """
+        Returns:
+            str: 记忆信息字符串
+        """
 
-    #     if not global_config.memory.enable_memory:
-    #         return ""
+        if not global_config.memory.enable_memory:
+            return ""
 
-    #     instant_memory = None
+        instant_memory = None
 
-    #     running_memories = await self.memory_activator.activate_memory_with_chat_history(
-    #         target_message=target, chat_history=chat_history
-    #     )
-    #     if not running_memories:
-    #         return ""
+        running_memories = await self.memory_activator.activate_memory_with_chat_history(
+            target_message=target, chat_history=chat_history
+        )
+        if not running_memories:
+            return ""
 
-    #     memory_str = "以下是当前在聊天中，你回忆起的记忆：\n"
-    #     for running_memory in running_memories:
-    #         keywords, content = running_memory
-    #         memory_str += f"- {keywords}：{content}\n"
+        memory_str = "以下是当前在聊天中，你回忆起的记忆：\n"
+        for running_memory in running_memories:
+            keywords, content = running_memory
+            memory_str += f"- {keywords}：{content}\n"
 
-    #     if instant_memory:
-    #         memory_str += f"- {instant_memory}\n"
+        if instant_memory:
+            memory_str += f"- {instant_memory}\n"
 
-    #     return memory_str
+        return memory_str
 
     async def build_tool_info(self, chat_history: str, sender: str, target: str, enable_tool: bool = True) -> str:
         """构建工具信息块
@@ -706,10 +706,10 @@ class DefaultReplyer:
             self._time_and_run_task(
                 self.build_expression_habits(chat_talking_prompt_short, target), "expression_habits"
             ),
-            # self._time_and_run_task(
-            #     self.build_relation_info(chat_talking_prompt_short, sender, person_list_short), "relation_info"
-            # ),
-            # self._time_and_run_task(self.build_memory_block(message_list_before_short, target), "memory_block"),
+            self._time_and_run_task(
+                self.build_relation_info(chat_talking_prompt_short, sender, person_list_short), "relation_info"
+            ),
+            self._time_and_run_task(self.build_memory_block(message_list_before_short, target), "memory_block"),
             self._time_and_run_task(
                 self.build_tool_info(chat_talking_prompt_short, sender, target, enable_tool=enable_tool), "tool_info"
             ),
@@ -722,7 +722,7 @@ class DefaultReplyer:
         task_name_mapping = {
             "expression_habits": "选取表达方式",
             "relation_info": "感受关系",
-            # "memory_block": "回忆",
+            "memory_block": "回忆",
             "tool_info": "使用工具",
             "prompt_info": "获取知识",
             "actions_info": "动作信息",
@@ -749,8 +749,8 @@ class DefaultReplyer:
         expression_habits_block, selected_expressions = results_dict["expression_habits"]
         expression_habits_block: str
         selected_expressions: List[int]
-        # relation_info: str = results_dict["relation_info"]
-        # memory_block: str = results_dict["memory_block"]
+        relation_info: str = results_dict["relation_info"]
+        memory_block: str = results_dict["memory_block"]
         tool_info: str = results_dict["tool_info"]
         prompt_info: str = results_dict["prompt_info"]  # 直接使用格式化后的结果
         actions_info: str = results_dict["actions_info"]
@@ -789,8 +789,8 @@ class DefaultReplyer:
                 expression_habits_block=expression_habits_block,
                 tool_info_block=tool_info,
                 knowledge_prompt=prompt_info,
-                # memory_block=memory_block,
-                # relation_info_block=relation_info,
+                memory_block=memory_block,
+                relation_info_block=relation_info,
                 extra_info_block=extra_info_block,
                 identity=personality_prompt,
                 action_descriptions=actions_info,
@@ -809,8 +809,8 @@ class DefaultReplyer:
                 expression_habits_block=expression_habits_block,
                 tool_info_block=tool_info,
                 knowledge_prompt=prompt_info,
-                # memory_block=memory_block,
-                # relation_info_block=relation_info,
+                memory_block=memory_block,
+                relation_info_block=relation_info,
                 extra_info_block=extra_info_block,
                 identity=personality_prompt,
                 action_descriptions=actions_info,
