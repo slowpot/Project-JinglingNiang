@@ -56,6 +56,12 @@ async def get_person_value(person_id: str, field_name: str, default: Any = None)
     """
     try:
         person = Person(person_id=person_id)
+        
+        # 检查属性是否存在
+        if not hasattr(person, field_name):
+            logger.warning(f"[PersonAPI] Person对象缺少属性: person_id={person_id}, field={field_name}, is_known={person.is_known}")
+            return default
+            
         value = getattr(person, field_name)
         return value if value is not None else default
     except Exception as e:

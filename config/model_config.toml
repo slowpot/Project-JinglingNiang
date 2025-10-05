@@ -92,6 +92,19 @@ api_provider = "SiliconFlow"
 price_in = 0
 price_out = 0
 
+[[models]]
+model_identifier = "Qwen/Qwen3-Omni-30B-A3B-Captioner"
+name = "qwen3-omni-captioner"
+api_provider = "SiliconFlow"
+price_in = 0
+price_out = 0
+
+[[models]]
+model_identifier = "moonshotai/Kimi-K2-Instruct-0905"
+name = "kimi-k2"
+api_provider = "SiliconFlow"
+price_in = 0
+price_out = 0
 
 [model_task_config.utils] # 在麦麦的一些组件中使用的模型，例如表情包模块，取名模块，关系模块，麦麦的情绪变化等，是麦麦必须的模型
 model_list = ['siliconflow-deepseek-v3'] # 使用的模型列表，每个子项对应上面的模型名称(name)
@@ -114,13 +127,13 @@ temperature = 0.3                        # 模型温度，新V3建议0.1-0.3
 max_tokens = 800
 
 [model_task_config.planner] #决策：负责决定麦麦该什么时候回复的模型
-model_list = ['siliconflow-deepseek-v3']
+model_list = ['kimi-k2']
 temperature = 0.3
 max_tokens = 800
 
 [model_task_config.vlm] # 图像识别模型
-model_list = ['qwen2.5-vl-72b']
-max_tokens = 800
+model_list = ['qwen3-omni-captioner']
+max_tokens = 1000
 
 [model_task_config.voice] # 语音识别模型
 model_list = ['sensevoice-small']

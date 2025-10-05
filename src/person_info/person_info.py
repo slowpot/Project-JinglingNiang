@@ -207,6 +207,9 @@ class Person:
         return person
 
     def __init__(self, platform: str = "", user_id: str = "", person_id: str = "", person_name: str = ""):
+        # 在所有路径开始前确保 memory_points 有默认值
+        self.memory_points = []
+        
         if platform == global_config.bot.platform and user_id == global_config.bot.qq_account:
             self.is_known = True
             self.person_id = get_person_id(platform, user_id)
@@ -251,7 +254,6 @@ class Person:
         self.know_times = 0
         self.know_since = None
         self.last_know: Optional[float] = None
-        self.memory_points = []
 
         # 从数据库加载数据
         self.load_from_database()
